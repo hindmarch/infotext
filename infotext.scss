@@ -1,0 +1,266 @@
+//
+// This component is very much like a tooltip, but instead
+// displays a 250px wide 'tooltip' when the user hovers over.
+//
+// To create an infotext item, use the attribute data-infotext in an element.
+//
+// Use a mixture of these classes along with the data-infotext attribute for style rules:
+// infotext-top:       appear at the top of the element (default)
+// infotext-bottom:    appear below the element
+// infotext-left:      appear to the left
+// infotext-right:     appear to the right
+// infotext-center:    appear horizontally centred
+// infotext-inverse:   visible by default, disappears on rollover
+// infotext-persist:   always visible (non-interactive)
+// infotext-alert:     styled as an error/alert message
+//
+
+
+// Configure settings here
+$infotext-width: 250px;
+$infotext-wide-width: 400px;
+$infotext-narrow-width: 100px;
+$infotext-color: #fff;
+$infotext-background-color: rgba(30, 30, 30, .8);
+$infotext-box-shadow-color: rgba(0, 0, 0, .3);
+$infotext-tail-inset: 20px;
+$infotext-tail-edge-length: 8px;
+$infotext-text-align: left;
+$infotext-alert-background-color: #f65;
+$infotext-alert-color: #fff;
+$infotext-border-radius: 3px;
+$infotext-z-index: 9;
+
+//Mixins
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -moz-box-shadow:$top $left $blur $color #{$inset};
+  -webkit-box-shadow:$top $left $blur $color #{$inset};
+  box-shadow:$top $left $blur $color #{$inset};
+}
+
+@mixin opacity($opacity) {
+  filter: alpha(opacity = $opacity * 100);
+  opacity: $opacity;
+}
+
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+[data-infotext] {
+  cursor: pointer;
+  position: relative;
+
+  &::before,
+  &::after {
+    @include opacity(0);
+    @include transition (all .5s ease-in-out);
+    color: $infotext-color;
+    font-family: 'Arimo', sans-serif;
+    pointer-events: none;
+    position: absolute;
+    text-align: $infotext-text-align;
+  }
+
+
+  &:hover::before,
+  &:hover::after,
+  &:focus::before,
+  &:focus::after,
+  &.infotext-persist::before,
+  &.infotext-persist::after,
+  &.infotext-inverse::before,
+  &.infotext-inverse::after {
+    @include opacity(1);
+    visibility: visible;
+    z-index: $infotext-z-index;
+  }
+
+  &.infotext-inverse:hover::before,
+  &.infotext-inverse:hover::after {
+    @include opacity(0);
+  }
+
+
+
+  &.infotext-alert {
+    &::before {
+      background: $infotext-alert-background-color;
+      color: $infotext-alert-color;
+    }
+
+    &:not(.infotext-bottom)::after {
+      border-top-color: $infotext-alert-background-color;
+    }
+
+    &.infotext-bottom::after {
+      border-bottom-color: $infotext-alert-background-color;
+    }
+  }
+
+  &::before {
+    @include box-shadow(6px, 6px, 20px, $infotext-box-shadow-color);
+    background-color: $infotext-background-color;
+    border-radius: $infotext-border-radius;
+    content: attr(data-infotext);
+    font-size: 13px;
+    line-height: 1.2;
+    margin: $infotext-tail-edge-length 0 $infotext-tail-edge-length 0 - ($infotext-width / 2);
+    min-height: 20px;
+    padding: 7px;
+    white-space: pre-line;
+    width: $infotext-width;
+  }
+
+  &.infotext-wide::before {
+    margin-left: 0 - ($infotext-wide-width / 2);
+    width: $infotext-wide-width;
+  }
+
+  &.infotext-narrow::before {
+    margin: $infotext-tail-edge-length 0 $infotext-tail-edge-length 0 - ($infotext-narrow-width / 2);
+    width: $infotext-narrow-width;
+  }
+
+  &::after {
+    border-left: $infotext-tail-edge-length solid transparent;
+    border-right: $infotext-tail-edge-length solid transparent;
+    content: ' ';
+    font-size: 0;
+    line-height: 0;
+    margin-left: 0 - $infotext-tail-edge-length;
+    width: 0;
+  }
+
+  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before,
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):hover::after,
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):hover::before {
+    bottom: 50%;
+  }
+
+  &:not(.infotext-bottom):hover::after,
+  &:not(.infotext-bottom):hover::before,
+  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::after,
+  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::before,
+  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):not(:hover)::after,
+  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):not(:hover)::before,
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):not(:hover)::after,
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):not(:hover)::before {
+    bottom: 150%;
+  }
+
+  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before,
+  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):hover::after,
+  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):hover::before {
+    bottom: 200%;
+  }
+
+  &.infotext-slide-up.infotext-bottom:not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-up.infotext-bottom:not(.infotext-inverse):not(:hover)::before,
+  &.infotext-slide-up.infotext-inverse.infotext-bottom:hover::after,
+  &.infotext-slide-up.infotext-inverse.infotext-bottom:hover::before {
+    top: 200%;
+  }
+
+  &.infotext-bottom::after,
+  &.infotext-bottom::before,
+  &.infotext-bottom:not(.infotext-slide-down):not(.infotext-slide-up)::after,
+  &.infotext-bottom:not(.infotext-slide-down):not(.infotext-slide-up)::before,
+  &.infotext-slide-down.infotext-inverse.infotext-bottom:not(:hover)::after,
+  &.infotext-slide-down.infotext-inverse.infotext-bottom:not(:hover)::before,
+  &.infotext-slide-up.infotext-inverse.infotext-bottom:not(:hover)::after,
+  &.infotext-slide-up.infotext-inverse.infotext-bottom:not(:hover)::before {
+    top: 150%;
+  }
+
+  &.infotext-slide-down.infotext-bottom:not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-down.infotext-bottom:not(.infotext-inverse):not(:hover)::before,
+  &.infotext-slide-down.infotext-inverse.infotext-bottom:hover::after,
+  &.infotext-slide-down.infotext-inverse.infotext-bottom:hover::before {
+    top: 100%;
+  }
+
+  &:not(.infotext-bottom)::after {
+    border-top: $infotext-tail-edge-length solid $infotext-background-color;
+  }
+
+  &.infotext-bottom::after {
+    border-bottom: $infotext-tail-edge-length solid $infotext-background-color;
+  }
+
+  &.infotext-center {
+    &::before,
+    &::after {
+      left: 50%;
+    }
+
+    &::after {
+      margin-left: $infotext-tail-edge-length / 2;
+    }
+  }
+
+  &:not(.infotext-center):not(.infotext-right) {
+    &::before,
+    &::after {
+      left: 0;
+      margin-left: 0 - $infotext-width * .8;
+    }
+
+    &::after {
+      margin-left: 20%;
+    }
+
+    &.infotext-wide::before {
+      margin-left: 0 - $infotext-wide-width * .8;
+    }
+
+    &.infotext-narrow::before {
+      margin-left: 0 - $infotext-narrow-width * .7;
+    }
+  }
+
+  &.infotext-right {
+    &::before,
+    &::after {
+      margin-left: 0 - ($infotext-width * .1);
+      right: 0 - $infotext-width * .8;
+    }
+
+    &::after {
+      margin-right: $infotext-width * .8;
+    }
+
+    &.infotext-wide::before,
+    &.infotext-wide::after {
+      margin-left: 0 - ($infotext-wide-width * .1);
+      right: 0 - $infotext-wide-width * .8;
+    }
+
+    &.infotext-wide::after {
+      margin-right: $infotext-wide-width * .8;
+    }
+
+    &.infotext-narrow::before,
+    &.infotext-narrow::after {
+      margin-left: 0 - ($infotext-narrow-width * .1);
+      right: 0 - $infotext-narrow-width * .8;
+    }
+
+    &.infotext-narrow::after {
+      margin-right: $infotext-narrow-width * .8;
+    }
+  }
+
+  &.infotext-text-center::before {
+    text-align: center;
+  }
+
+  &.infotext-text-right::before {
+    text-align: right;
+  }
+}
