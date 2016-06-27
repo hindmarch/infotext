@@ -64,6 +64,7 @@ section {
   float: left;
   margin-bottom: 2rem;
   padding: 2rem;
+  width: 100%;
 }
 
 section > code {
@@ -86,9 +87,10 @@ section .example {
   box-sizing: border-box;
   clear: both;
   display: inline-block;
+  font-family: 'Ubuntu', sans-serif;
   float: right;
   height: 6rem;
-  padding: 1rem;
+  padding: 3rem 1rem;
   width: 50%;
 }
 
@@ -117,10 +119,10 @@ section p {
         The default behaviour is to display the tooltip on the top-left of the element
       </p>
       <code>
-      &lt;div data-infotext=&quot;Basic Example&quot;&gt;Basic Infotext example&lt;/div&gt;
+      &lt;span data-infotext=&quot;Basic Example&quot;&gt;Basic Infotext example&lt;/span&gt;
       </code>
       <div class="example">
-        <div data-infotext="Basic Example">Basic Infotext example</div>
+        <span data-infotext="Basic Example">Basic Infotext example</span>
       </div>
     </section>
     
@@ -145,13 +147,13 @@ section p {
       <code>
         &lt;div data-infotext=&quot;Please enter your name here&quot; class=&quot;<strong>infotext-inverse infotext-alert</strong> infotext-center infotext-bottom infotext-text-center&quot;&gt;<br>
           &nbsp; &lt;label for=&quot;example-name&quot;&gt;Your Name: &lt;/label&gt;<br>
-          &nbsp; &lt;input type=&quot;text&quot; id=&quot;example-name&quot;&gt;<br>
+          &nbsp; &lt;input id=&quot;example-name&quot;&gt;<br>
         &lt;/div&gt;
       </code>
       <div class="example">
-        <div data-infotext="Please enter your name here" class="infotext-inverse infotext-alert infotext-center infotext-bottom infotext-text-center">
-          <label for="example-name">Your Name: </label>
-          <input type="text" id="example-name">
+        <div data-infotext="Please enter your name here" class="infotext-inverse infotext-alert infotext-left infotext-bottom">
+          <label style="width: 150px; display: inline-block" for="example-name">Your Name: </label>
+          <input style="width: 200px" id="example-name">
         </div>
       </div>
     </section>

@@ -18,26 +18,33 @@
 //
 
 // Configure settings here
-$infotext-width: 250px;
-$infotext-wide-width: 400px;
-$infotext-narrow-width: 100px;
-$infotext-color: #fff;
-$infotext-background-color: rgba(30, 30, 30, .8);
-$infotext-box-shadow-color: rgba(0, 0, 0, .3);
-$infotext-tail-inset: 20px;
-$infotext-tail-edge-length: 8px;
-$infotext-text-align: left;
 $infotext-alert-background-color: #f65;
 $infotext-alert-color: #fff;
+$infotext-background-color: rgba(30, 30, 30, .8);
 $infotext-border-radius: 3px;
-$infotext-z-index: 9;
+$infotext-box-shadow-color: rgba(0, 0, 0, .3);
+$infotext-color: #fff;
 $infotext-fade-duration: .3s;
+$infotext-narrow-width: 100px;
+$infotext-tail-edge-length: 8px;
+$infotext-tail-inset: 20px;
+$infotext-text-align: left;
+$infotext-wide-width: 400px;
+$infotext-width: 250px;
+$infotext-z-index: 9;
 
 //Mixins
 @mixin infotext-box-shadow($top, $left, $blur, $color, $inset:"") {
   -moz-box-shadow:$top $left $blur $color #{$inset};
   -webkit-box-shadow:$top $left $blur $color #{$inset};
   box-shadow:$top $left $blur $color #{$inset};
+}
+
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
 }
 
 @mixin opacity($opacity) {
@@ -66,34 +73,6 @@ $infotext-fade-duration: .3s;
   }
 }
 
-@keyframes infotext-show {
-  from {
-    @include opacity(0);
-    visibility: 0;
-    z-index: 0;
-  }
-
-  to {
-    @include opacity(1);
-    visibility: 1;
-    z-index: $infotext-z-index;
-  }
-}
-
-@keyframes infotext-hide {
-  from {
-    @include opacity(1);
-    visibility: 1;
-    z-index: $infotext-z-index;
-  }
-
-  to {
-    @include opacity(0);
-    visibility: 0;
-    z-index: 0;
-  }
-}
-
 [data-infotext] {
   animation: infotext-container-hide $infotext-fade-duration ease-in-out;
   animation-fill-mode: forwards;
@@ -112,8 +91,7 @@ $infotext-fade-duration: .3s;
   &::before,
   &::after {
     @include opacity(0);
-    animation: infotext-hide $infotext-fade-duration ease-in-out;
-    animation-fill-mode: forwards;
+    @include transition(all $infotext-fade-duration ease-in-out);
     color: $infotext-color;
     font-family: 'Arimo', sans-serif;
     pointer-events: none;
@@ -122,22 +100,21 @@ $infotext-fade-duration: .3s;
     z-index: 0;
   }
 
-  &:hover::before,
-  &:hover::after,
-  &:focus::before,
-  &:focus::after,
-  &.infotext-persist::before,
-  &.infotext-persist::after,
+  &.infotext-inverse::after,
   &.infotext-inverse::before,
-  &.infotext-inverse::after {
-    animation: infotext-show $infotext-fade-duration ease-in-out;
-    animation-fill-mode: forwards;
-    visibility: visible;
+  &.infotext-persist::after,
+  &.infotext-persist::before,
+  &:focus::after,
+  &:focus::before,
+  &:hover::after,
+  &:hover::before {
+    @include opacity(1);
+    @include transition(all $infotext-fade-duration ease-in-out);
     z-index: $infotext-z-index;
   }
 
-  &.infotext-inverse:hover::before,
-  &.infotext-inverse:hover::after {
+  &.infotext-inverse:hover::after,
+  &.infotext-inverse:hover::before {
     @include opacity(0);
   }
 
@@ -190,28 +167,28 @@ $infotext-fade-duration: .3s;
     width: 0;
   }
 
-  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
-  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before,
   &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):hover::after,
-  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):hover::before {
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):hover::before,
+  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-up:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before {
     bottom: 50%;
   }
 
-  &:not(.infotext-bottom):hover::after,
-  &:not(.infotext-bottom):hover::before,
-  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::after,
-  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::before,
   &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):not(:hover)::after,
   &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):not(:hover)::before,
   &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):not(:hover)::after,
-  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):not(:hover)::before {
+  &.infotext-slide-up.infotext-inverse:not(.infotext-bottom):not(:hover)::before,
+  &:not(.infotext-bottom):hover::after,
+  &:not(.infotext-bottom):hover::before,
+  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::after,
+  &:not(.infotext-bottom):not(.infotext-slide-down):not(.infotext-slide-up)::before {
     bottom: 150%;
   }
 
-  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
-  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before,
   &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):hover::after,
-  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):hover::before {
+  &.infotext-slide-down.infotext-inverse:not(.infotext-bottom):hover::before,
+  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::after,
+  &.infotext-slide-down:not(.infotext-bottom):not(.infotext-inverse):not(:hover)::before {
     bottom: 200%;
   }
 
@@ -249,8 +226,8 @@ $infotext-fade-duration: .3s;
   }
 
   &.infotext-center {
-    &::before,
-    &::after {
+    &::after,
+    &::before {
       left: 50%;
     }
 
@@ -260,14 +237,16 @@ $infotext-fade-duration: .3s;
   }
 
   &:not(.infotext-center):not(.infotext-right) {
-    &::before,
-    &::after {
-      left: 0;
-      margin-left: 0 - $infotext-width * .8;
+    &::after,
+    &::before {
+      
+      margin-left: 0;
+      right: 50%;
     }
 
     &::after {
-      margin-left: 20%;
+      margin-right: 20px;
+      right: 50%;
     }
 
     &.infotext-wide::before {
@@ -280,8 +259,8 @@ $infotext-fade-duration: .3s;
   }
 
   &.infotext-right {
-    &::before,
-    &::after {
+    &::after,
+    &::before {
       margin-left: 0 - ($infotext-width * .1);
       right: 0 - $infotext-width * .8;
     }
@@ -290,8 +269,8 @@ $infotext-fade-duration: .3s;
       margin-right: $infotext-width * .8;
     }
 
-    &.infotext-wide::before,
-    &.infotext-wide::after {
+    &.infotext-wide::after,
+    &.infotext-wide::before {
       margin-left: 0 - ($infotext-wide-width * .1);
       right: 0 - $infotext-wide-width * .8;
     }
@@ -300,8 +279,8 @@ $infotext-fade-duration: .3s;
       margin-right: $infotext-wide-width * .8;
     }
 
-    &.infotext-narrow::before,
-    &.infotext-narrow::after {
+    &.infotext-narrow::after,
+    &.infotext-narrow::before {
       margin-left: 0 - ($infotext-narrow-width * .1);
       right: 0 - $infotext-narrow-width * .8;
     }
