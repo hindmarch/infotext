@@ -13,8 +13,9 @@
 // infotext-inverse:   visible by default, disappears on rollover
 // infotext-persist:   always visible (non-interactive)
 // infotext-alert:     styled as an error/alert message
+// infotext-slide-down animated slide in (top to bottom)
+// infotext-slide-up   animated slide in (bottom to top)
 //
-
 
 // Configure settings here
 $infotext-width: 250px;
@@ -30,9 +31,10 @@ $infotext-alert-background-color: #f65;
 $infotext-alert-color: #fff;
 $infotext-border-radius: 3px;
 $infotext-z-index: 9;
+$infotext-fade-duration: .3s;
 
 //Mixins
-@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+@mixin infotext-box-shadow($top, $left, $blur, $color, $inset:"") {
   -moz-box-shadow:$top $left $blur $color #{$inset};
   -webkit-box-shadow:$top $left $blur $color #{$inset};
   box-shadow:$top $left $blur $color #{$inset};
@@ -43,28 +45,82 @@ $infotext-z-index: 9;
   opacity: $opacity;
 }
 
-@mixin transition($transition...) {
-  -moz-transition: $transition;
-  -o-transition: $transition;
-  -webkit-transition: $transition;
-  transition: $transition;
+//animation
+@keyframes infotext-container-show {
+  from {
+    z-index: 0;
+  }
+
+  to {
+    z-index: $infotext-z-index;
+  }
+}
+
+@keyframes infotext-container-hide {
+  from {
+    z-index: $infotext-z-index;
+  }
+
+  to {
+    z-index: 0;
+  }
+}
+
+@keyframes infotext-show {
+  from {
+    @include opacity(0);
+    visibility: 0;
+    z-index: 0;
+  }
+
+  to {
+    @include opacity(1);
+    visibility: 1;
+    z-index: $infotext-z-index;
+  }
+}
+
+@keyframes infotext-hide {
+  from {
+    @include opacity(1);
+    visibility: 1;
+    z-index: $infotext-z-index;
+  }
+
+  to {
+    @include opacity(0);
+    visibility: 0;
+    z-index: 0;
+  }
 }
 
 [data-infotext] {
+  animation: infotext-container-hide $infotext-fade-duration ease-in-out;
+  animation-fill-mode: forwards;
   cursor: pointer;
   position: relative;
+  z-index: 0;
+
+  &:hover,
+  .infotext-persist,
+  .infotext-inverse {
+    animation: infotext-container-show $infotext-fade-duration ease-in-out;
+    animation-fill-mode: forwards;
+    z-index: $infotext-z-index;
+  }
 
   &::before,
   &::after {
     @include opacity(0);
-    @include transition (all .5s ease-in-out);
+    animation: infotext-hide $infotext-fade-duration ease-in-out;
+    animation-fill-mode: forwards;
     color: $infotext-color;
     font-family: 'Arimo', sans-serif;
     pointer-events: none;
     position: absolute;
     text-align: $infotext-text-align;
+    z-index: 0;
   }
-
 
   &:hover::before,
   &:hover::after,
@@ -74,7 +130,8 @@ $infotext-z-index: 9;
   &.infotext-persist::after,
   &.infotext-inverse::before,
   &.infotext-inverse::after {
-    @include opacity(1);
+    animation: infotext-show $infotext-fade-duration ease-in-out;
+    animation-fill-mode: forwards;
     visibility: visible;
     z-index: $infotext-z-index;
   }
@@ -83,8 +140,6 @@ $infotext-z-index: 9;
   &.infotext-inverse:hover::after {
     @include opacity(0);
   }
-
-
 
   &.infotext-alert {
     &::before {
@@ -102,7 +157,7 @@ $infotext-z-index: 9;
   }
 
   &::before {
-    @include box-shadow(6px, 6px, 20px, $infotext-box-shadow-color);
+    @include infotext-box-shadow(6px, 6px, 20px, $infotext-box-shadow-color);
     background-color: $infotext-background-color;
     border-radius: $infotext-border-radius;
     content: attr(data-infotext);
@@ -190,7 +245,7 @@ $infotext-z-index: 9;
   }
 
   &.infotext-bottom::after {
-    border-bottom: $infotext-tail-edge-length solid $infotext-background-color;
+    border-bottom: $infotext-tail-edge-length + .5 solid $infotext-background-color;
   }
 
   &.infotext-center {
