@@ -13,8 +13,15 @@
 // infotext-inverse:   visible by default, disappears on rollover
 // infotext-persist:   always visible (non-interactive)
 // infotext-alert:     styled as an error/alert message
-// infotext-slide-down animated slide in (top to bottom)
-// infotext-slide-up   animated slide in (bottom to top)
+// infotext-light:     lighter styling
+// infotext-slide-down: animated slide in (top to bottom)
+// infotext-slide-up:   animated slide in (bottom to top)
+// infotext-text-left: text aligned left
+// infotext-text-center: text aligned center
+// infotext-text-right: text aligned right
+// infotext-text-large: increased font size
+// infotext-wide:       wider tooltip
+// infotext-narrow:     narrower tooltip
 //
 
 // Configure settings here
@@ -25,7 +32,14 @@ $infotext-border-radius: 3px;
 $infotext-box-shadow-color: rgba(0, 0, 0, .3);
 $infotext-color: #fff;
 $infotext-fade-duration: .3s;
+$infotext-font-family: 'Verdana', sans-serif;
+$infotext-font-size: 11px;
+$infotext-font-size-large: 13px;
+$infotext-light-background-color: #ddd;
+$infotext-light-color: #333;
 $infotext-narrow-width: 100px;
+$infotext-opacity: .8;
+$infotext-padding: 8px 12px;
 $infotext-tail-edge-length: 8px;
 $infotext-tail-inset: 20px;
 $infotext-text-align: left;
@@ -93,7 +107,6 @@ $infotext-z-index: 9;
     @include opacity(0);
     @include transition(all $infotext-fade-duration ease-in-out);
     color: $infotext-color;
-    font-family: 'Arimo', sans-serif;
     pointer-events: none;
     position: absolute;
     text-align: $infotext-text-align;
@@ -108,9 +121,22 @@ $infotext-z-index: 9;
   &:focus::before,
   &:hover::after,
   &:hover::before {
-    @include opacity(1);
+    @include opacity($infotext-opacity);
     @include transition(all $infotext-fade-duration ease-in-out);
     z-index: $infotext-z-index;
+  }
+
+  &.infotext-opaque {
+    &.infotext-inverse::after,
+    &.infotext-inverse::before,
+    &.infotext-persist::after,
+    &.infotext-persist::before,
+    &:focus::after,
+    &:focus::before,
+    &:hover::after,
+    &:hover::before {
+      @include opacity(1);
+    }
   }
 
   &.infotext-inverse:hover::after,
@@ -133,19 +159,39 @@ $infotext-z-index: 9;
     }
   }
 
+  &.infotext-light {
+    &::before {
+      background: $infotext-light-background-color;
+      color: $infotext-light-color;
+    }
+
+    &:not(.infotext-bottom)::after {
+      border-top-color: $infotext-light-background-color;
+    }
+
+    &.infotext-bottom::after {
+      border-bottom-color: $infotext-light-background-color;
+    }
+  }
+
   &::before {
     @include infotext-box-shadow(6px, 6px, 20px, $infotext-box-shadow-color);
     background-color: $infotext-background-color;
     border-radius: $infotext-border-radius;
     content: attr(data-infotext);
-    font-size: 13px;
+    font-family: $infotext-font-family;
+    font-size: $infotext-font-size;
     line-height: 1.2;
     margin: $infotext-tail-edge-length 0 $infotext-tail-edge-length 0 - ($infotext-width / 2);
     min-height: 20px;
-    padding: 7px;
+    padding: $infotext-padding;
     white-space: pre-line;
     width: $infotext-width;
   }
+
+  &.infotext-text-large::before {
+      font-size: $infotext-font-size-large;
+    }
 
   &.infotext-wide::before {
     margin-left: 0 - ($infotext-wide-width / 2);

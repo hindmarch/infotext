@@ -30,19 +30,21 @@
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     color: #fff;
-    font-family: 'Arimo', sans-serif;
     pointer-events: none;
     position: absolute;
     text-align: left;
     z-index: 0; }
   [data-infotext].infotext-inverse::after, [data-infotext].infotext-inverse::before, [data-infotext].infotext-persist::after, [data-infotext].infotext-persist::before, [data-infotext]:focus::after, [data-infotext]:focus::before, [data-infotext]:hover::after, [data-infotext]:hover::before {
-    filter: alpha(opacity=100);
-    opacity: 1;
+    filter: alpha(opacity=80);
+    opacity: 0.8;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     z-index: 9; }
+  [data-infotext].infotext-opaque.infotext-inverse::after, [data-infotext].infotext-opaque.infotext-inverse::before, [data-infotext].infotext-opaque.infotext-persist::after, [data-infotext].infotext-opaque.infotext-persist::before, [data-infotext].infotext-opaque:focus::after, [data-infotext].infotext-opaque:focus::before, [data-infotext].infotext-opaque:hover::after, [data-infotext].infotext-opaque:hover::before {
+    filter: alpha(opacity=100);
+    opacity: 1; }
   [data-infotext].infotext-inverse:hover::after, [data-infotext].infotext-inverse:hover::before {
     filter: alpha(opacity=0);
     opacity: 0; }
@@ -53,6 +55,13 @@
     border-top-color: #f65; }
   [data-infotext].infotext-alert.infotext-bottom::after {
     border-bottom-color: #f65; }
+  [data-infotext].infotext-light::before {
+    background: #ddd;
+    color: #333; }
+  [data-infotext].infotext-light:not(.infotext-bottom)::after {
+    border-top-color: #ddd; }
+  [data-infotext].infotext-light.infotext-bottom::after {
+    border-bottom-color: #ddd; }
   [data-infotext]::before {
     -moz-box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3) ;
     -webkit-box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3) ;
@@ -60,13 +69,16 @@
     background-color: rgba(30, 30, 30, 0.8);
     border-radius: 3px;
     content: attr(data-infotext);
-    font-size: 13px;
+    font-family: "Verdana", sans-serif;
+    font-size: 11px;
     line-height: 1.2;
     margin: 8px 0 8px -125px;
     min-height: 20px;
-    padding: 7px;
+    padding: 8px 12px;
     white-space: pre-line;
     width: 250px; }
+  [data-infotext].infotext-text-large::before {
+    font-size: 13px; }
   [data-infotext].infotext-wide::before {
     margin-left: -200px;
     width: 400px; }

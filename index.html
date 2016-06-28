@@ -128,20 +128,20 @@ section p {
     </section>
     
     <section>
-      <h3>Positioning</h3>
+      <h3>Alternate Positions &amp; Large Text</h3>
       <p>
         By adding the classes <code>infotext-right</code> and/or <code>infotext-bottom</code> the position of the tooltip is changed (relative to the element it belongs to)
       </p>
       <code>
-      &lt;button data-infotext=&quot;Tooltip on bottom-right&quot; <strong>class=&quot;infotext-right infotext-bottom&quot;</strong>&gt;Positioning tooltip on bottom-right&lt;/button&gt;
+      &lt;button data-infotext=&quot;Tooltip on bottom-right&quot; <strong>class=&quot;infotext-right infotext-bottom infotext-text-large&quot;</strong>&gt;Positioning tooltip on bottom-right&lt;/button&gt;
       </code>
       <div class="example">
-        <button data-infotext="Tooltip on bottom-right" class="infotext-right infotext-bottom">Positioning tooltip on bottom-right</button>
+        <button data-infotext="Tooltip on bottom-right" class="infotext-right infotext-bottom infotext-text-large">Positioning tooltip on bottom-right</button>
       </div>
     </section>
     
     <section>
-      <h3>Alert and Inverse</h3>
+      <h3>Alert &amp; Inverse</h3>
       <p>
         The tooltip can be used for form validation by combining the classes <code>infotext-alert</code> and <code>infotext-inverse</code> to show error messages that disappear when the user mouses over the content
       </p>
@@ -173,15 +173,15 @@ section p {
     </section>
     
     <section>
-      <h3>Animated Tooltip</h3>
+      <h3>Animated &amp; Light Tooltip</h3>
       <p>
         It's possible to add in the <code>infotext-slide-up</code> or <code>infotext-slide-down</code> classes to add in a simple animation along with the fade in/out.
       </p>
       <code>
-        &lt;a href=&quot;#&quot; data-infotext=&quot;Don&#39;t worry, help is here!&quot; class=&quot;infotext-bottom infotext-right <strong>infotext-slide-up</strong> infotext-narrow&quot;&gt;
+        &lt;a href=&quot;#&quot; data-infotext=&quot;Don&#39;t worry, help is here!&quot; class=&quot;infotext-bottom infotext-right <strong>infotext-slide-up infotext-light</strong> infotext-narrow&quot;&gt;
       </code>
       <div class="example">
-        <a href="#" data-infotext="Don't worry, help is here!" class="infotext-bottom infotext-right infotext-slide-up infotext-narrow">Help</a>
+        <a href="#" data-infotext="Don't worry, help is here!" class="infotext-bottom infotext-right infotext-slide-up infotext-light infotext-narrow">Help</a>
       </div>
     </section>
     
@@ -205,14 +205,22 @@ section p {
       <dd>Add the attribute <code>data-infotext</code> to any HTML element</dd>
       <dt>Position options</dt>
       <dd>Use the classes <code>infotext-top</code> or <code>infotext-bottom</code>, and <code>infotext-left</code> and <code>infotext-right</code> to position the tooltip against the element it appears on</dd>
+      <dt>Line Breaks</dt>
+      <dd>Use a straight forward carriage return or <code>&amp;#10;</code> to force a line break in the tooltip</dd>
       <dt>Alerts</dt>
       <dd>Use the <code>infotext-alert</code> class to style the tooltip for urgent messages</dd>
+      <dt>Lighter</dt>
+      <dd>Use the <code>infotext-light</code> class to display the tooltip using light colours</dd>
+      <dt>Opaque</dt>
+      <dd>For a non-transparent background, use the <code>infotext-opaque</code> class</dd>
       <dt>Persistant Tooltips</dt>
       <dd>For tooltips that don't rely on user events (they appear by default) use the <code>infotext-persist</code> class</dd>
       <dt>Inverse Action</dt>
       <dd>If you need a tooltip that appears by default, but disappears on hover, use the <code>infotext-inverse</code> class</dd>
       <dt>Text Alignment</dt>
-      <dd>If you need to align the text to the center or right, use the classes <code>infotext-text-center</code> and <code>infotext-text-right</code> classes
+      <dd>If you need to align the text to the center or right, use the classes <code>infotext-text-center</code> and <code>infotext-text-right</code> classes</dd>
+      <dt>Large Text</dt>
+      <dd>Use the <code>infotext-text-large</code> class to display larger text</dd>
       <dt>Wider Tooltip</dt>
       <dd>By default, the tooltip is 250px wide (this can be configured in the SCSS file). To make the tooltip wider (400px), use the class <code>infotip-wide</code></dd>
       <dt>Narrower Tooltip</dt>
