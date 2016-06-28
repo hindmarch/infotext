@@ -239,7 +239,6 @@ $infotext-z-index: 9;
   &:not(.infotext-center):not(.infotext-right) {
     &::after,
     &::before {
-      
       margin-left: 0;
       right: 50%;
     }

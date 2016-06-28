@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+<meta charset="UTF-8">
 <title>Infotext CSS Component</title>
 <link rel="stylesheet" href="infotext.css">
 <link href="https://fonts.googleapis.com/css?family=Kreon:400,700|Open+Sans" rel="stylesheet" type="text/css">
@@ -159,15 +160,15 @@ section p {
     </section>
     
     <section>
-      <h3>Wider Tooltip</h3>
+      <h3>Wider Tooltip &amp; Line Breaks</h3>
       <p>
         The CSS isn't aware of the amount of content being displayed, so it can't determine by itself the right width for the tooltip. You can add the <code>infotext-wide</code> (or conversely <code>infotext-narrow</code>) to display more appropriate widths for the content you need to display.
       </p>
       <code>
-        &lt;a href=&quot;#&quot; data-infotext=&quot;This is a wider tooltip for when more text needs to be displayed. It&#39;s 400px wide by default, but this can be adjusted in the SCSS file.&quot; class=&quot;<strong>infotext-wide</strong> infotext-bottom infotext-right&quot;&gt;Help&lt;/a&gt;
+        &lt;a href=&quot;#&quot; data-infotext=&quot;This is a wider tooltip for when more text needs to be displayed.<strong>&amp;#10;&amp;#10;</strong>It&#39;s 400px wide by default, but this can be adjusted in the SCSS file.<strong>&amp;#10;&amp;#10;</strong>This tooltip also has line breaks, allowing for limited formatting of the text&quot; class=&quot;<strong>infotext-wide</strong> infotext-bottom infotext-right&quot;&gt;Help&lt;/a&gt;
       </code>
       <div class="example">
-        <a href="#" data-infotext="This is a wider tooltip for when more text needs to be displayed. It's 400px wide by default, but this can be adjusted in the SCSS file." class="infotext-wide infotext-bottom infotext-right">Help</a>
+        <a href="#" data-infotext="This is a wider tooltip for when more text needs to be displayed.&#10;&#10;It's 400px wide by default, but this can be adjusted in the SCSS file.&#10;&#10;This tooltip also has line breaks, allowing for limited formatting of the text" class="infotext-wide infotext-bottom infotext-right">Help</a>
       </div>
     </section>
     
