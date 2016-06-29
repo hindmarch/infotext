@@ -32,9 +32,9 @@ $infotext-border-radius: 3px;
 $infotext-box-shadow-color: rgba(0, 0, 0, .3);
 $infotext-color: #fff;
 $infotext-fade-duration: .3s;
-$infotext-font-family: 'Verdana', sans-serif;
-$infotext-font-size: 11px;
-$infotext-font-size-large: 13px;
+$infotext-font-family: verdana, sans-serif;
+$infotext-font-size: 13px;
+$infotext-font-size-large: 16px;
 $infotext-light-background-color: #ddd;
 $infotext-light-color: #333;
 $infotext-narrow-width: 100px;
@@ -91,6 +91,7 @@ $infotext-z-index: 9;
   animation: infotext-container-hide $infotext-fade-duration ease-in-out;
   animation-fill-mode: forwards;
   cursor: pointer;
+  overflow: visible;
   position: relative;
   z-index: 0;
 
@@ -185,13 +186,15 @@ $infotext-z-index: 9;
     margin: $infotext-tail-edge-length 0 $infotext-tail-edge-length 0 - ($infotext-width / 2);
     min-height: 20px;
     padding: $infotext-padding;
+    text-decoration: none;
+    text-shadow: none;
     white-space: pre-line;
     width: $infotext-width;
   }
 
   &.infotext-text-large::before {
-      font-size: $infotext-font-size-large;
-    }
+    font-size: $infotext-font-size-large;
+  }
 
   &.infotext-wide::before {
     margin-left: 0 - ($infotext-wide-width / 2);
@@ -207,7 +210,7 @@ $infotext-z-index: 9;
     border-left: $infotext-tail-edge-length solid transparent;
     border-right: $infotext-tail-edge-length solid transparent;
     content: ' ';
-    font-size: 0;
+    height: 0;
     line-height: 0;
     margin-left: 0 - $infotext-tail-edge-length;
     width: 0;
@@ -242,7 +245,7 @@ $infotext-z-index: 9;
   &.infotext-slide-up.infotext-bottom:not(.infotext-inverse):not(:hover)::before,
   &.infotext-slide-up.infotext-inverse.infotext-bottom:hover::after,
   &.infotext-slide-up.infotext-inverse.infotext-bottom:hover::before {
-    top: 200%;
+    top: 170%;
   }
 
   &.infotext-bottom::after,
@@ -253,14 +256,14 @@ $infotext-z-index: 9;
   &.infotext-slide-down.infotext-inverse.infotext-bottom:not(:hover)::before,
   &.infotext-slide-up.infotext-inverse.infotext-bottom:not(:hover)::after,
   &.infotext-slide-up.infotext-inverse.infotext-bottom:not(:hover)::before {
-    top: 150%;
+    top: 120%;
   }
 
   &.infotext-slide-down.infotext-bottom:not(.infotext-inverse):not(:hover)::after,
   &.infotext-slide-down.infotext-bottom:not(.infotext-inverse):not(:hover)::before,
   &.infotext-slide-down.infotext-inverse.infotext-bottom:hover::after,
   &.infotext-slide-down.infotext-inverse.infotext-bottom:hover::before {
-    top: 100%;
+    top: 90%;
   }
 
   &:not(.infotext-bottom)::after {
@@ -268,7 +271,7 @@ $infotext-z-index: 9;
   }
 
   &.infotext-bottom::after {
-    border-bottom: $infotext-tail-edge-length + .5 solid $infotext-background-color;
+    border-bottom: $infotext-tail-edge-length solid $infotext-background-color;
   }
 
   &.infotext-center {
